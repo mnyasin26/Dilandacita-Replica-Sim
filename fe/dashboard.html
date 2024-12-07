@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='cache-control' content='no-cache'>
+        <meta http-equiv='expires' content='0'>
+        <meta http-equiv='pragma' content='no-cache'>
+        <title>DILANDACITA (Digitalisasi Layanan Dokumen Adminduk Cimahi Kota)</title>
+        <link rel="icon" type="image/x-icon" href="https://dilandacita.cimahikota.go.id/public/favicon.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/fonts-googleapis/font-googleapis.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/ionic/css/ionicons.min.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/daterangepicker/daterangepicker.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+
+
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/dist/css/select2.min.css" />
+
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+
+
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+        <!-- SweetAlert2 -->
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/sweetalert2/sweetalert2.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/sweetalert2/sweetalert2.min.css">
+
+        <!-- Toastr -->
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/toastr/toastr.min.css">
+
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/dist/css/adminlte.min.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/lightbox/dist/css/lightbox.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/adminlte/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://dilandacita.cimahikota.go.id/public/css/app.css">
+
+        <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+
+        <style>
+            a {
+                text-decoration: none;
+            }
+
+            .swal-wide {
+                width: 850px !important;
+            }
+        </style>
+            </head>
+
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
+            <div class="col-sm-12"></div>
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light text-sm">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button" style="color: #001529;"><i class="fas fa-bars"></i>
+                            <b>DILANDACITA</b>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item pr-1">
+                        <a href="#" style="color: #001529;">
+                            <i class="fas fa-user-alt"></i>
+                            <span>&nbsp;<b>Irham Jundurrahmaan</b></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <aside class="main-sidebar elevation-4" style="background-color: #001529;">
+    <a href="#" class="brand-link">
+        <center><img src="https://dilandacita.cimahikota.go.id/public/img/pemkot.png" width="30px"></center>
+    </a>
+
+    <p class="h6 text-center text-light">DILANDA CITA</p>
+
+
+    <div class="sidebar" style="font-size: 14px;">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item active">
+                    <a href="https://dilandacita.cimahikota.go.id/dashboard" class="nav-link text-light">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="https://dilandacita.cimahikota.go.id/grafik/grafik_layanan" class="nav-link text-light">
+                        <i class="nav-icon fas fa-chart-bar"></i>
+                        <p>Grafik Layanan</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="https://dilandacita.cimahikota.go.id/kuesioner/pengolahan" class="nav-link text-light">
+                        <i class="nav-icon fas fa-chart-bar"></i>
+                        <p>Survey Kepuasan</p>
+                    </a>
+                </li>
+
+
+
+                <li class="nav-item">
+                    <a href="https://dilandacita.cimahikota.go.id/pengajuan" class="nav-link text-light">
+                        <i class="nav-icon fas fa-file-alt"></i>
+                        <p>Pengajuan</p>
+                    </a>
+                </li>
+
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link text-light">
+                        <i class="nav-icon fas fa-th-list"></i>
+                        <p>Daftar Pengajuan</p><span class="fas fa-chevron-right ml-2"></span>
+                    </a>
+                    <ul class="nav nav-treeview" style="padding-left: 10px;">
+
+                        <li class="nav-item">
+                            <a href="https://dilandacita.cimahikota.go.id/daftarpengajuan/kelahirankolektif" class="nav-link text-light">
+                                <i class="nav-icon far fa-file-alt"></i>
+                                <p>3 In 1 Kelahiran</p>
+                                                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="https://dilandacita.cimahikota.go.id/daftarpengajuan/aktakelahiran" class="nav-link text-light">
+                                <i class="nav-icon far fa-file-alt"></i>
+                                <p>Akta Kelahiran</p>
+                                                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="https://dilandacita.cimahikota.go.id/daftarpengajuan/aktakematian" class="nav-link text-light">
+                                <i class="nav-icon far fa-file-alt"></i>
+                                <p>Akta Kematian</p>
+                                                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="https://dilandacita.cimahikota.go.id/daftarpengajuan/aktaperkawinan" class="nav-link text-light">
+                                <i class="nav-icon far fa-file-alt"></i>
+                                <p>Akta Perkawinan</p>
+                                                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="https://dilandacita.cimahikota.go.id/daftarpengajuan/kartukeluarga" class="nav-link text-light">
+                                <i class="nav-icon far fa-file-alt"></i>
+                                <p>Cetak Kartu Keluarga</p>
+                                                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="https://dilandacita.cimahikota.go.id/daftarpengajuan/cetakulangktp" class="nav-link text-light">
+                                <i class="nav-icon far fa-file-alt"></i>
+                                <p>Cetak Ulang KTP-el</p>
+                                                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="https://dilandacita.cimahikota.go.id/daftarpengajuan/cetakulangktp3in1" class="nav-link text-light">
+                                <i class="nav-icon far fa-file-alt"></i>
+                                <p>Cetak KTP-el 3 In 1</p>
+                                                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="https://dilandacita.cimahikota.go.id/daftarpengajuan/inputbiodata" class="nav-link text-light">
+                                <i class="nav-icon far fa-file-alt"></i>
+                                <p>Input Biodata</p>
+                                                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="https://dilandacita.cimahikota.go.id/daftarpengajuan/kartuidentitasanak" class="nav-link text-light">
+                                <i class="nav-icon far fa-file-alt"></i>
+                                <p>Kartu Identitas Anak</p>
+                                                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="https://dilandacita.cimahikota.go.id/daftarpengajuan/perbaikandata" class="nav-link text-light">
+                                <i class="nav-icon far fa-file-alt"></i>
+                                <p>Perbaikan Data</p>
+                                                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="https://dilandacita.cimahikota.go.id/daftarpengajuan/pindahdatang" class="nav-link text-light">
+                                <i class="nav-icon far fa-file-alt"></i>
+                                <p>Pindah Datang</p>
+                                                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="https://dilandacita.cimahikota.go.id/daftarpengajuan/perpindahanpenduduk" class="nav-link text-light">
+                                <i class="nav-icon far fa-file-alt"></i>
+                                <p>Pindah Keluar</p>
+                                                            </a>
+                        </li>
+
+
+
+                                                    <li class="nav-item">
+                                <a href="https://dilandacita.cimahikota.go.id/daftarpengajuan/semeru" class="nav-link text-light">
+                                    <i class="nav-icon far fa-file-alt"></i>
+                                    <p>Semeru</p>
+                                                                    </a>
+                            </li>
+
+                    </ul>
+                </li>
+
+
+                                    <li class="nav-item">
+                        <a href="https://dilandacita.cimahikota.go.id/klaim/klaimdokumen" class="nav-link text-light">
+                            <i class="nav-icon fas fa-paste"></i>
+                            <p>Klaim Dokumen</p>
+                        </a>
+                    </li>
+
+
+                                    <li class="nav-item">
+                        <a href="https://dilandacita.cimahikota.go.id/pengaturan" class="nav-link text-light">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>Pengaturan</p><span class="fas fa-chevron-right ml-2"></span>
+                        </a>
+                        <ul class="nav nav-treeview text-light" style="padding-left: 10px;">
+                            <li class="nav-item">
+                                <a href="https://dilandacita.cimahikota.go.id/pengaturan" class="nav-link text-light">
+                                    <i class="nav-icon far fa-file-alt"></i>
+                                    <p>Data User</p>
+                                </a>
+                            </li>
+                                                                                                            </ul>
+                    </li>
+
+
+                                <li class="nav-item">
+                    <a href="https://dilandacita.cimahikota.go.id/downloadFormulir" class="nav-link text-light">
+                        <i class="nav-icon fas fa-file-download"></i>
+                        <p>Download Formulir</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="https://drive.cimahikota.go.id/s/iXXLs7NQZ2BQWoP" target="_blank" class="nav-link text-light">
+                        <i class="nav-icon fas fa-file-download"></i>
+                        <p>Download Manual Book</p>
+                    </a>
+                </li>
+
+
+
+                <li class="nav-item">
+                    <a href="https://dilandacita.cimahikota.go.id/logout" class="nav-link text-light">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
+
+            <div class="content-wrapper" style="padding: 10px">
+                    <section class="content" style="font-size: 14px;">
+        <div class="card card-default shadow" style="border-radius: 15px;">
+            <div class="card-header text-center">
+                <div class="row pt-2">
+                    <div class="col-sm-12">
+                        <h4>PENGAJUAN ANDA</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table id="tDashboard" name="tDashboard" class="table table-bordered table-striped small nowrap shadow" width="100%">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>#</th>
+                                        <th>TANGGAL LAPOR</th>
+                                        <th>NAMA LAYANAN</th>
+                                        <th>STATUS</th>
+                                        <th>AKSI</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                                                                                        </tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-default shadow" style="border-radius: 15px;">
+            <div class="card-header text-center">
+                <div class="row pt-2">
+                    <div class="col-sm-12">
+                        <h4>INFORMASI PENGAJUAN HARI INI</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="small-box bg-info shadow" style="border-radius: 15px">
+                            <div class="inner pl-4">
+                                <h3><b>16</b></h3>
+                                <p><b>AKTA KELAHIRAN</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="small-box bg-info shadow" style="border-radius: 15px">
+                            <div class="inner pl-4">
+                                <h3><b>1</b></h3>
+                                <p><b>AKTA KEMATIAN</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="small-box bg-info shadow" style="border-radius: 15px">
+                            <div class="inner pl-4">
+                                <h3><b>0</b></h3>
+                                <p><b>AKTA PERKAWINAN</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="small-box bg-info shadow" style="border-radius: 15px">
+                            <div class="inner pl-4">
+                                <h3><b>34</b></h3>
+                                <p><b>CETAK ULANG KARTU KELUARGA</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="small-box bg-info shadow" style="border-radius: 15px">
+                            <div class="inner pl-4">
+                                <h3><b>102</b></h3>
+                                <p><b>CETAK ULANG KTP-EL</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="small-box bg-info shadow" style="border-radius: 15px">
+                            <div class="inner pl-4">
+                                <h3><b>0</b></h3>
+                                <p><b>INPUT BIODATA</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="small-box bg-info shadow" style="border-radius: 15px">
+                            <div class="inner pl-4">
+                                <h3><b>0</b></h3>
+                                <p><b>KARTU IDENTITAS ANAK (KIA)</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="small-box bg-info shadow" style="border-radius: 15px">
+                            <div class="inner pl-4">
+                                <h3><b>29</b></h3>
+                                <p><b>PERBAIKAN DATA</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="small-box bg-info shadow" style="border-radius: 15px">
+                            <div class="inner pl-4">
+                                <h3><b>0</b></h3>
+                                <p><b>PINDAH DATANG</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="small-box bg-info shadow" style="border-radius: 15px">
+                            <div class="inner pl-4">
+                                <h3><b>1</b></h3>
+                                <p><b>PINDAH KELUAR</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="small-box bg-info shadow" style="border-radius: 15px">
+                            <div class="inner pl-4">
+                                <h3><b>1</b></h3>
+                                <p><b>SEMERU</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+            </div>
+
+            <footer class="main-footer text-dark" style="font-size: 12px;">
+    &copy 2022 Disdukcapil Kota Cimahi
+    <div class="float-right d-none d-sm-block">Version 2.0</div>
+</footer>
+
+            <aside class="control-sidebar control-sidebar-dark"></aside>
+        </div>
+
+        <!-- jQuery -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/jquery/jquery.min.js"></script>
+        <!-- jquery-validation -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/jquery-validation/additional-methods.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- bs-custom-file-input -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+        <!-- SweetAlert2 -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/select2/js/select2.min.js"></script>
+
+
+        <script src="https://dilandacita.cimahikota.go.id/public/js/axios.min.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Toastr -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/toastr/toastr.min.js"></script>
+        <!-- DataTables -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/jszip/jszip.min.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/pdfmake/pdfmake.min.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/pdfmake/vfs_fonts.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+
+
+
+        <!-- Select2 -->
+
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/select2/js/select2.min.js"></script>
+
+        <!-- Bootstrap4 Duallistbox -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+        <!-- InputMask -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/moment/moment.min.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+        <!-- date-range-picker -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- bootstrap color picker -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+        <!-- Bootstrap Switch -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/dist/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/dist/js/demo.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/dist/js/html2canvas.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/lightbox/dist/js/lightbox.js"></script>
+        <!-- ChartJS -->
+        <script src="https://dilandacita.cimahikota.go.id/public/adminlte/plugins/chart.js/Chart.min.js"></script>
+        <!-- OnChange -->
+
+
+
+        <script src="https://dilandacita.cimahikota.go.id/public/js/imageCompress.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/js/app.js"></script>
+
+        <script src="https://dilandacita.cimahikota.go.id/public/js/inputbiodata.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/js/daftarpengajuan_aktakelahiran.js"></script>
+        <script src="https://dilandacita.cimahikota.go.id/public/js/detailaktakelahiran.js"></script>
+
+
+        <script src="https://dilandacita.cimahikota.go.id/public/js/form-akta-kematian.js"></script>
+            <script>
+        $(function() {
+            $("#tDashboard").DataTable();
+        });
+    </script>
+    <script>
+        function pengembangan() {
+            swal.fire({
+                icon: "info",
+                title: "Informasi",
+                text: "Fitur Sedang Dalam Pengembangan!",
+            });
+        };
+    </script>
+        <script>
+            $(function() {
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "autoWidth": false,
+                });
+                $('#example2').DataTable({
+                    // "paging": true,
+                    // "lengthChange": true,
+                    // "searching": true,
+                    // "ordering": true,
+                    // "info": true,
+                    "responsive": true,
+                    "autoWidth": false,
+                });
+            });
+        </script>
+    </body>
+
+</html>
