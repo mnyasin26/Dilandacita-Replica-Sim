@@ -10,6 +10,7 @@ use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SubmissionDetailController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\SemuaFormController;
 // use Auth
 // use Illuminate\Support\Facades\Auth;
 
@@ -44,10 +45,18 @@ Route::get('/pengaturan', [UserController::class, 'index'])->name('pengaturan');
 Route::get('/dashboard/{id}/detail', [SubmissionDetailController::class, 'detail'])->name('dashboard.detail');
 
 Route::get('/verifikasi', [VerificationController::class, 'index'])->name('verifikasi');
+Route::put('/verifikasi/{id}', [VerificationController::class, 'verify'])->name('verifikasi.verify');
+Route::put('/verifikasi/{id}/reject', [VerificationController::class, 'reject'])->name('verifikasi.reject');
 
 Route::get('/persetujuan', [ApprovalController::class, 'index'])->name('persetujuan');
+Route::put('/persetujuan/{id}', [ApprovalController::class, 'approve'])->name('persetujuan.approve');
+Route::put('/persetujuan/{id}/reject', [ApprovalController::class, 'reject'])->name('persetujuan.reject');
 
 Route::get('/penerbitan', [IssuesController::class, 'index'])->name('penerbitan');
+Route::put('/penerbitan/{id}', [IssuesController::class, 'issue'])->name('penerbitan.issue');
+Route::put('/penerbitan/{id}/reject', [IssuesController::class, 'reject'])->name('penerbitan.reject');
+
+Route::get('/semua_pengajuan', [SemuaFormController::class, 'index'])->name('semua_pengajuan');
 
 Route::put('/user/{id}/update-role', [UserController::class, 'updateRole'])->name('user.updateRole');
 Route::put('/user/{id}/update-kategori', [UserController::class, 'updateKategori'])->name('user.updateKategori');

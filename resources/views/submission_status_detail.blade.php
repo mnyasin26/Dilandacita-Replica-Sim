@@ -20,6 +20,8 @@
                         <div class="col-sm-12">
                             <h4>DETAIL PENGAJUAN</h4>
                         </div>
+                        {{-- button to another web (Hyperledger Exploer and CouchDB on the right) --}}
+
                     </div>
                 </div>
                 <div class="card-body">
@@ -29,106 +31,116 @@
                                 <div id="tracking-pre"></div>
                                 <div id="tracking">
                                     <div class="text-center tracking-status-intransit">
-                                        <p class="tracking-status text-tight">in transit</p>
+                                        <p class="tracking-status text-tight">
+                                            {{ $history[0]['value']['applicationState']['status'] }}</p>
                                     </div>
                                     <div class="tracking-list">
-                                        {{-- Content from order_tracking_vertical.html --}}
-                                        <div class="tracking-item">
-                                            <div class="tracking-icon status-intransit">
-                                                <svg class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true"
-                                                    data-prefix="fas" data-icon="circle" role="img"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                                    data-fa-i2svg="">
-                                                    <path fill="currentColor"
-                                                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z">
-                                                    </path>
-                                                </svg>
+                                        @foreach ($history as $item)
+                                            <div class="tracking-item">
+
+                                                @if ($item['value']['applicationState']['status'] == 'Pending')
+                                                    <div class="tracking-icon status-intransit"
+                                                        style="background-color: rgb(124, 124, 124);">
+                                                        <img viewBox="0 0 512 512" data-icon="circle"
+                                                            class="svg-inline--fa fa-circle fa-w-16"
+                                                            src="{{ asset('images/diajukan.png') }}" alt="Pending"
+                                                            style="width: 24px; height: 24px;">
+                                                    </div>
+                                                @elseif($item['value']['applicationState']['status'] == 'Verified')
+                                                    <div class="tracking-icon status-intransit"
+                                                        style="background-color: rgb(5, 109, 189);">
+                                                        <img viewBox="0 0 512 512" data-icon="circle"
+                                                            class="svg-inline--fa fa-circle fa-w-16"
+                                                            src="{{ asset('images/diverifikasi.png') }}" alt="Verified"
+                                                            style="width: 24px; height: 24px; ">
+                                                    </div>
+                                                @elseif($item['value']['applicationState']['status'] == 'Approved')
+                                                    <div class="tracking-icon status-intransit"
+                                                        style="background-color: rgb(200, 123, 29);">
+                                                        <img viewBox="0 0 512 512" data-icon="circle"
+                                                            class="svg-inline--fa fa-circle fa-w-16"
+                                                            src="{{ asset('images/disetujui.png') }}" alt="Approved"
+                                                            style="width: 24px; height: 24px; ">
+                                                        <!-- ...existing or default icon... -->
+                                                    </div>
+                                                @elseif($item['value']['applicationState']['status'] == 'Issued')
+                                                    <div class="tracking-icon status-intransit"
+                                                        style="background-color: rgb(17, 173, 0);">
+                                                        <img viewBox="0 0 512 512" data-icon="circle"
+                                                            class="svg-inline--fa fa-circle fa-w-16"
+                                                            src="{{ asset('images/diterbitkan.png') }}" alt="Issued"
+                                                            style="width: 24px; height: 24px; ">
+                                                    </div>
+                                                @elseif($item['value']['applicationState']['status'] == 'Repealed')
+                                                    <div class="tracking-icon status-intransit"
+                                                        style="background-color: rgb(205, 18, 18);">
+                                                        <img viewBox="0 0 512 512" data-icon="circle"
+                                                            class="svg-inline--fa fa-circle fa-w-16"
+                                                            src="{{ asset('images/ditolak.png') }}" alt="Repealed"
+                                                            style="width: 24px; height: 24px; ">
+                                                    </div>
+                                                @endif
+
+
+                                                <div class="tracking-date">
+                                                    {{ \Carbon\Carbon::createFromTimestamp($item['timestamp']['seconds'])->timezone('Asia/Jakarta')->format('M d, Y') }}
+                                                    <span>{{ \Carbon\Carbon::createFromTimestamp($item['timestamp']['seconds'])->timezone('Asia/Jakarta')->format('h:i A') }}</span>
+                                                </div>
+                                                <div class="tracking-content">
+                                                    Status: {{ $item['value']['applicationState']['status'] }}
+
+                                                    @if (isset($item['value']['application']['modifiedBy']))
+                                                        <span>Dimodifikasi Oleh:
+                                                            {{ $item['value']['application']['modifiedBy'] }}</span>
+                                                    @elseif(isset($item['value']['applicationState']['submittedBy']))
+                                                        <span>Disubmit Oleh:
+                                                            {{ $item['value']['applicationState']['submittedBy'] }}</span>
+                                                        {{-- <span>Menunggu verifikasi</span> --}}
+                                                    @elseif(isset($item['value']['applicationState']['verifiedBy']))
+                                                        <span>Diverifikasi Oleh:
+                                                            {{ $item['value']['applicationState']['verifiedBy'] }}</span>
+                                                    @elseif(isset($item['value']['applicationState']['approvedBy']))
+                                                        <span>Disetujui Oleh:
+                                                            {{ $item['value']['applicationState']['approvedBy'] }}</span>
+                                                    @elseif(isset($item['value']['applicationState']['issuedBy']))
+                                                        <span>Diterbitkan Oleh:
+                                                            {{ $item['value']['applicationState']['issuedBy'] }}</span>
+                                                    @elseif(isset($item['value']['applicationState']['repealedBy']))
+                                                        <span>Ditolak Oleh:
+                                                            {{ $item['value']['applicationState']['repealedBy'] }}</span>
+                                                    @endif
+
+                                                    <span>Transaction ID: {{ $item['txId'] }}</span>
+                                                </div>
                                             </div>
-                                            <div class="tracking-date">Aug 10, 2018<span>05:01 PM</span></div>
-                                            <div class="tracking-content">DESTROYED PER SHIPPER INSTRUCTION<span>KUALA
-                                                    LUMPUR (LOGISTICS HUB), MALAYSIA, MALAYSIA</span></div>
-                                        </div>
-                                        <div class="tracking-item">
-                                            <div class="tracking-icon status-intransit">
-                                                <svg class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true"
-                                                    data-prefix="fas" data-icon="circle" role="img"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                                    data-fa-i2svg="">
-                                                    <path fill="currentColor"
-                                                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z">
-                                                    </path>
-                                                </svg>
-                                                <!-- <i class="fas fa-circle"></i> -->
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="card mb-3">
+                                    <div class="card-header text-center">Detail Pengajuan di Hyperledger Explorer dan CouchDB (Preview Usage Only)</div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <a href="http://212.38.94.235:7011" class="btn btn-primary btn-sm mb-2" target="_blank">Hyperledger Explorer</a>
+                                                <div class="form-group">
+                                                    <label class="text-left mb-1 font-weight-bold">Username</label>
+                                                    <p class="text-left mb-1 bg-light p-2 rounded">admin</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="text-left mb-1 font-weight-bold">Password</label>
+                                                    <p class="text-left mb-3 bg-light p-2 rounded">adminpw</p>
+                                                </div>
+                                                <a href="http://212.38.94.235:5100/_utils" class="btn btn-primary btn-sm mb-2" target="_blank">CouchDB</a>
+                                                <div class="form-group">
+                                                    <label class="text-left mb-1 font-weight-bold">Username</label>
+                                                    <p class="text-left mb-1 bg-light p-2 rounded">peer0</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="text-left mb-1 font-weight-bold">Password</label>
+                                                    <p class="text-left bg-light p-2 rounded">peer0Password</p>
+                                                </div>
                                             </div>
-                                            <div class="tracking-date">Aug 10, 2018<span>11:19 AM</span></div>
-                                            <div class="tracking-content">SHIPMENT DELAYSHIPPER INSTRUCTION TO
-                                                DESTROY<span>SHENZHEN, CHINA, PEOPLE'S REPUBLIC</span></div>
                                         </div>
-                                        <div class="tracking-item">
-                                            <div class="tracking-icon status-intransit">
-                                                <svg class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true"
-                                                    data-prefix="fas" data-icon="circle" role="img"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                                    data-fa-i2svg="">
-                                                    <path fill="currentColor"
-                                                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z">
-                                                    </path>
-                                                </svg>
-                                                <!-- <i class="fas fa-circle"></i> -->
-                                            </div>
-                                            <div class="tracking-date">Jul 27, 2018<span>04:08 PM</span></div>
-                                            <div class="tracking-content">DELIVERY ADVICERequest Instruction from
-                                                ORIGIN<span>KUALA LUMPUR (LOGISTICS HUB), MALAYSIA, MALAYSIA</span></div>
-                                        </div>
-                                        <div class="tracking-item">
-                                            <div class="tracking-icon status-intransit">
-                                                <svg class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true"
-                                                    data-prefix="fas" data-icon="circle" role="img"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                                    data-fa-i2svg="">
-                                                    <path fill="currentColor"
-                                                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z">
-                                                    </path>
-                                                </svg>
-                                                <!-- <i class="fas fa-circle"></i> -->
-                                            </div>
-                                            <div class="tracking-date">Jul 20, 2018<span>05:25 PM</span></div>
-                                            <div class="tracking-content">Delivery InfoCLOSED-OFFICE/HOUSE CLOSED<span>KUALA
-                                                    LUMPUR (LOGISTICS HUB), MALAYSIA, MALAYSIA</span></div>
-                                        </div>
-                                        <div class="tracking-item">
-                                            <div class="tracking-icon status-outfordelivery">
-                                                <svg class="svg-inline--fa fa-shipping-fast fa-w-20" aria-hidden="true"
-                                                    data-prefix="fas" data-icon="shipping-fast" role="img"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
-                                                    data-fa-i2svg="">
-                                                    <path fill="currentColor"
-                                                        d="M624 352h-16V243.9c0-12.7-5.1-24.9-14.1-33.9L494 110.1c-9-9-21.2-14.1-33.9-14.1H416V48c0-26.5-21.5-48-48-48H112C85.5 0 64 21.5 64 48v48H8c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8h272c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H40c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8h208c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H8c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8h208c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H64v128c0 53 43 96 96 96s96-43 96-96h128c0 53 43 96 96 96s96-43 96-96h48c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM160 464c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm320 0c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm80-208H416V144h44.1l99.9 99.9V256z">
-                                                    </path>
-                                                </svg>
-                                                <!-- <i class="fas fa-shipping-fast"></i> -->
-                                            </div>
-                                            <div class="tracking-date">Jul 20, 2018<span>08:58 AM</span></div>
-                                            <div class="tracking-content">Shipment is out for despatch by
-                                                KLHB023.<span>KUALA LUMPUR (LOGISTICS HUB), MALAYSIA, MALAYSIA</span></div>
-                                        </div>
-                                        <div class="tracking-item">
-                                            <div class="tracking-icon status-intransit">
-                                                <svg class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true"
-                                                    data-prefix="fas" data-icon="circle" role="img"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                                    data-fa-i2svg="">
-                                                    <path fill="currentColor"
-                                                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z">
-                                                    </path>
-                                                </svg>
-                                                <!-- <i class="fas fa-circle"></i> -->
-                                            </div>
-                                            <div class="tracking-date">Jul 19, 2018<span>05:42 PM</span></div>
-                                            <div class="tracking-content">Delivery InfoUNABLE TO ACCESS<span>KUALA LUMPUR
-                                                    (LOGISTICS HUB), MALAYSIA, MALAYSIA</span></div>
-                                        </div>
-                                        {{-- Add more tracking items as needed --}}
                                     </div>
                                 </div>
                             </div>
@@ -152,12 +164,10 @@
                             <div class="card-header text-center">DATA WILAYAH</div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="provinsi" class="col-sm-3 col-form-label"><span
-                                            style="color: red;"></span>
+                                    <label for="provinsi" class="col-sm-3 col-form-label"><span style="color: red;"></span>
                                         Provinsi</label>
                                     <div class="col-sm-4">
-                                        <select name="provinsi" id="provinsi" class="form-select form-select-sm"
-                                            disabled>
+                                        <select name="provinsi" id="provinsi" class="form-select form-select-sm" disabled>
                                             {{-- Options --}}
                                             <option selected="selected" value="JAWA BARAT">32 - JAWA BARAT</option>
                                         </select>

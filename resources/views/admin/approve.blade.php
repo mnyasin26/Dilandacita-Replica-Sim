@@ -30,23 +30,37 @@
                                         <tr class="text-center">
                                             <th>#</th>
                                             <th>TANGGAL LAPOR</th>
-                                            <th>NAMA</th>
-                                            <th>LAYANAN</th>
+                                            <th>NAMA LAYANAN</th>
+                                            <th>STATUS</th>
                                             <th>AKSI</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="text-center">
-                                            <td>1</td>
-                                            <td>2023-10-01</td>
-                                            <td>John Doe</td>
-                                            <td>Service A</td>
-                                            <td>
-                                                <a href="" class="btn btn-primary btn-sm">Detail</a>
-                                                <a href="" class="btn btn-danger btn-sm">Tolak</a>
-                                                <a href="" class="btn btn-success btn-sm">Setujui</a>
-                                            </td>
-                                        </tr>
+                                        @foreach($pengajuans as $index => $pengajuan)
+                                            <tr class="text-center">
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $pengajuan->tgl_pengajuan->format('Y-m-d') }}</td>
+                                                <td>{{ $pengajuan->m_layanan->nama_layanan == 'aktaLahir' ? 'AKTA KELAHIRAN' : $pengajuan->m_layanan->nama_layanan ?? '-' }}</td>
+                                                <td>{{ $pengajuan->status_pengajuan }}</td>
+                                                <td>
+                                                    <a href="{{ route('dashboard.detail', $pengajuan->id_pengajuan) }}" class="btn btn-primary btn-sm">Detail</a>
+                                                    <form action="{{ route('penerbitan.reject', $pengajuan->id_pengajuan) }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit" class="btn btn-danger btn-sm">Tolak</button>
+                                                    </form>
+
+                                                    {{-- <a href="{{ route('akta-kelahiran') }}" class="btn btn-primary btn-sm">Detail</a> --}}
+                                                    {{-- <a href="" class="btn btn-warning btn-sm">Edit</a> --}}
+                                                    <form action="{{ route('persetujuan.approve', $pengajuan->id_pengajuan) }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit" class="btn btn-success btn-sm">Setujui</button>
+                                                    </form>
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

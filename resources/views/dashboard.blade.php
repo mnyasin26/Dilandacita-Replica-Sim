@@ -13,7 +13,7 @@
                 </ol>
             </nav>
 
-            {{-- Pengajuan Anda --}}
+            @if(Auth::user()->m_role->role === 'citizen' or Auth::user()->m_role->role === 'superAdmin')
             <div class="card card-default shadow-sm mb-4" style="border-radius: 15px;">
                 <div class="card-header text-center">
                     <div class="row pt-2">
@@ -26,7 +26,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="table-responsive">
-                                <table id="tPengajuanAnda" name="tPengajuanAnda" class="table table-bordered table-striped small nowrap shadow-sm" width="100%">
+                                <table id="tPengajuanAnda" name="tPengajuanAnda"
+                                    class="table table-bordered table-striped small nowrap shadow-sm" width="100%">
                                     <thead>
                                         <tr class="text-center">
                                             <th>#</th>
@@ -37,15 +38,29 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($pengajuans as $index => $pengajuan)
+                                        @foreach ($pengajuans as $index => $pengajuan)
                                             <tr class="text-center">
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ $pengajuan->tgl_pengajuan->format('Y-m-d') }}</td>
-                                                <td>{{ $pengajuan->m_layanan->nama_layanan == 'aktaLahir' ? 'AKTA KELAHIRAN' : $pengajuan->m_layanan->nama_layanan ?? '-' }}</td>
+                                                <td>{{ $pengajuan->m_layanan->nama_layanan == 'aktaLahir' ? 'AKTA KELAHIRAN' : $pengajuan->m_layanan->nama_layanan ?? '-' }}
+                                                </td>
                                                 <td>{{ $pengajuan->status_pengajuan }}</td>
                                                 <td>
-                                                    <a href="{{ route('dashboard.detail', $pengajuan->id_pengajuan) }}" class="btn btn-primary btn-sm">Detail</a>
-                                                    <a href="{{ route('akta-kelahiran.edit', $pengajuan->id_pengajuan) }}" class="btn btn-success btn-sm">Edit</a>
+                                                    <a href="{{ route('dashboard.detail', $pengajuan->id_pengajuan) }}"
+                                                        class="btn btn-primary btn-sm">Detail</a>
+
+                                                    @if ($pengajuan->status_pengajuan == 'Ditolak')
+                                                        <a href="{{ route('akta-kelahiran.edit', $pengajuan->id_pengajuan) }}"
+                                                            class="btn btn-warning btn-sm">Perbaiki</a>
+                                                    @elseif ($pengajuan->status_pengajuan == 'Diterima')
+                                                        <a href="{{ route('akta-kelahiran.edit', $pengajuan->id_pengajuan) }}"
+                                                            class="btn btn-warning btn-sm">Edit</a>
+                                                    @elseif ($pengajuan->status_pengajuan == 'Diterbitkan')
+                                                        <a href="{{ asset('pdf_example/EXAMPLE_PDF.pdf') }}"
+                                                            class="btn btn-success btn-sm">Download Sertifikat</a>
+                                                    @endif
+
+
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -56,6 +71,7 @@
                     </div>
                 </div>
             </div>
+            @endif
 
             {{-- Additional Information --}}
             <div class="card card-default shadow-sm" style="border-radius: 15px;">

@@ -7,7 +7,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="">Halaman Utama</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Verifikasi</li>
+                    <li class="breadcrumb-item active" aria-current="page">Semua Form</li>
                 </ol>
             </nav>
 
@@ -16,7 +16,7 @@
                 <div class="card-header text-center">
                     <div class="row pt-2">
                         <div class="col-sm-12">
-                            <h4>VERIFIKASI</h4>
+                            <h4>SEMUA FORM</h4>
                         </div>
                     </div>
                 </div>
@@ -30,6 +30,7 @@
                                         <tr class="text-center">
                                             <th>#</th>
                                             <th>TANGGAL LAPOR</th>
+                                            <th>NAMA PELAPOR</th>
                                             <th>NAMA LAYANAN</th>
                                             <th>STATUS</th>
                                             <th>AKSI</th>
@@ -38,28 +39,26 @@
 
                                     </thead>
                                     <tbody>
-                                        @foreach($pengajuans as $index => $pengajuan)
+                                        @foreach ($pengajuans as $index => $pengajuan)
                                             <tr class="text-center">
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ $pengajuan->tgl_pengajuan->format('Y-m-d') }}</td>
-                                                <td>{{ $pengajuan->m_layanan->nama_layanan == 'aktaLahir' ? 'AKTA KELAHIRAN' : $pengajuan->m_layanan->nama_layanan ?? '-' }}</td>
+                                                <td>{{ $pengajuan->nama_lgkp ?? '-' }}</td>
+                                                <td>{{ $pengajuan->m_layanan->nama_layanan == 'aktaLahir' ? 'AKTA KELAHIRAN' : $pengajuan->m_layanan->nama_layanan ?? '-' }}
+                                                </td>
                                                 <td>{{ $pengajuan->status_pengajuan }}</td>
                                                 <td>
-                                                    <a href="{{ route('dashboard.detail', $pengajuan->id_pengajuan) }}" class="btn btn-primary btn-sm">Detail</a>
-                                                    <a href="{{ route('akta-kelahiran.edit', $pengajuan->id_pengajuan) }}" class="btn btn-warning btn-sm">Edit</a>
-                                                    {{-- <a href="{{ route('akta-kelahiran') }}" class="btn btn-primary btn-sm">Detail</a> --}}
-                                                    {{-- <a href="" class="btn btn-warning btn-sm">Edit</a> --}}
-                                                    <form action="{{ route('penerbitan.reject', $pengajuan->id_pengajuan) }}" method="POST" style="display:inline;">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button type="submit" class="btn btn-danger btn-sm">Tolak</button>
+                                                    <a href="{{ route('dashboard.detail', $pengajuan->id_pengajuan) }}"
+                                                        class="btn btn-primary btn-sm">Detail</a>
                                                     </form>
-                                                    <form action="{{ route('verifikasi.verify', $pengajuan->id_pengajuan) }}" method="POST" style="display:inline;">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button type="submit" class="btn btn-success btn-sm">Verifikasi</button>
-                                                    </form>
+                                                    @if ($pengajuan->status_pengajuan == 'Diterbitkan')
+                                                        <a href="#"
+                                                            class="btn btn-success btn-sm">Download Sertifikat</a>
+                                                    @endif
                                                 </td>
+
+
+
                                             </tr>
                                         @endforeach
                                     </tbody>

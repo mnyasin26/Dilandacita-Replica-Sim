@@ -375,15 +375,16 @@ class AktaLahirController extends Controller
         $pengajuan = TPengajuan::findOrFail($id);
 
         // Ensure the logged-in user owns the submission
-        if ($pengajuan->created_by != Auth::id()) {
-            abort(403);
-        }
+        // if ($pengajuan->created_by != Auth::id()) {
+        //     abort(403);
+        // }
 
         $pengajuanAkta = PengajuanAktaKelahiran::where('pengajuan_id', $id)->first();
         $user = Auth::user();
 
         // return json of pengajuanAkta and user and pengajuan
         // return response()->json([$pengajuanAkta, $user, $pengajuan]);
+
 
         return view('submission_aktaLahir', compact('pengajuan', 'pengajuanAkta', 'user'));
     }
@@ -392,13 +393,167 @@ class AktaLahirController extends Controller
     {
         $pengajuan = TPengajuan::findOrFail($id);
 
+        $pengajuanAkta = PengajuanAktaKelahiran::where('pengajuan_id', $id)->first();
+
+        $pengajuan->status_pengajuan = 'Diterima';
+        $pengajuan->save();
+
+        // return response()->json([$pengajuan, $pengajuanAkta]);
+
         // Ensure the logged-in user owns the submission
-        if ($pengajuan->created_by != Auth::id()) {
-            abort(403);
+        // if ($pengajuan->created_by != Auth::id()) {
+        //     abort(403);
+        // }
+
+        $validatedData = $request;
+
+        // check what attribute is being changed from the original data in TPengajuan from the request
+        $attributName = '';
+        $attributValue = '';
+        $modifiedBy = Auth::id();
+
+        // $applicationData = [
+        //     (string) $pengajuan->id_pengajuan,
+        //     (string) $validatedData['nama_lengkap_anak'],
+        //     (string) $validatedData['tanggal_kelahiran_anak'],
+        //     (string) $validatedData['jam'],
+        //     (string) $validatedData['tempat_kelahiran_anak'],
+        //     (string) ($jenisKelamin == 1 ? 'Laki-laki' : 'Perempuan'),
+        //     (string) $validatedData['nama_ayah'],
+        //     (string) $validatedData['nama_ibu'],
+        //     '-',
+        //     '-',
+        //     '-',
+        //     (string) $validatedData['nama_lengkap_pelapor'],
+        // ];
+
+        $keys = [
+            ['nama_lgkp_anak', 'nama_lengkap_anak'],
+            ['tgl_kelahiran_anak', 'tanggal_kelahiran_anak'],
+            ['waktu_kelahiran', 'jam'],
+            ['tempat_kelahirkan_anak', 'tempat_kelahiran_anak'],
+            ['jenis_kelamin_anak', 'jenis_kelamin_anak'],
+            ['nama_lgkp_ayah', 'nama_ayah'],
+            ['nama_lgkp_ibu', 'nama_ibu'],
+        ];
+
+        if ($pengajuanAkta['nama_lgkp_anak'] != $request['nama_lengkap_anak']) {
+            $attributName = 'childName';
+            $attributValue = $request['nama_lengkap_anak'];
+            $applicationData = [
+                (string) $pengajuan->id_pengajuan,
+                (string) $attributName,
+                (string) $attributValue,
+                (string) Auth::id(),
+            ];
+            $res = BlockchainAktaLahirUtil::updateApplication($applicationData);
+
         }
 
+        $tempTgl = date('Y-m-d', strtotime($pengajuanAkta['tgl_kelahiran_anak']));
+
+        if ($tempTgl != $request['tanggal_kelahiran_anak']) {
+            $attributName = 'tgl_kelahiran_anak';
+            $attributValue = $request['tanggal_kelahiran_anak'];
+            $applicationData = [
+                (string) $pengajuan->id_pengajuan,
+                (string) $attributName,
+                (string) $attributValue,
+                (string) Auth::id(),
+            ];
+            $res = BlockchainAktaLahirUtil::updateApplication($applicationData);
+
+        }
+
+        $tempWaktu = date('H:i', strtotime($pengajuanAkta['waktu_kelahiran']));
+        if ($tempWaktu != $request['jam']) {
+            $attributName = 'waktu_kelahiran';
+            $attributValue = $request['jam'];
+            $applicationData = [
+                (string) $pengajuan->id_pengajuan,
+                (string) $attributName,
+                (string) $attributValue,
+                (string) Auth::id(),
+            ];
+
+            $res = BlockchainAktaLahirUtil::updateApplication($applicationData);
+
+        }
+
+        if ($pengajuanAkta['tempat_kelahirkan_anak'] != $request['tempat_kelahiran_anak']) {
+            $attributName = 'tempat_kelahirkan_anak';
+            $attributValue = $request['tempat_kelahiran_anak'];
+            $applicationData = [
+                (string) $pengajuan->id_pengajuan,
+                (string) $attributName,
+                (string) $attributValue,
+                (string) Auth::id(),
+            ];
+
+            $res = BlockchainAktaLahirUtil::updateApplication($applicationData);
+
+        }
+
+        $jenisKelamin = $validatedData['jenis_kelamin_anak'] == 'L' ? 1 : 2;
+
+        if ($pengajuanAkta['jenis_kelamin_anak'] != $jenisKelamin) {
+            $attributName = 'jenis_kelamin_anak';
+            $attributValue = $request['jenis_kelamin_anak'];
+
+            $applicationData = [
+                (string) $pengajuan->id_pengajuan,
+                (string) $attributName,
+                (string) $attributValue,
+                (string) Auth::id(),
+            ];
+
+            $res = BlockchainAktaLahirUtil::updateApplication($applicationData);
+
+        }
+
+
+        if ($pengajuanAkta['nama_lgkp_ayah'] != $request['nama_ayah']) {
+            $attributName = 'nama_lgkp_ayah';
+            $attributValue = $request['nama_ayah'];
+
+            $applicationData = [
+                (string) $pengajuan->id_pengajuan,
+                (string) $attributName,
+                (string) $attributValue,
+                (string) Auth::id(),
+            ];
+
+            $res = BlockchainAktaLahirUtil::updateApplication($applicationData);
+
+        }
+
+        if ($pengajuanAkta['nama_lgkp_ibu'] != $request['nama_ibu']) {
+            $attributName = 'nama_lgkp_ibu';
+            $attributValue = $request['nama_ibu'];
+
+            $applicationData = [
+                (string) $pengajuan->id_pengajuan,
+                (string) $attributName,
+                (string) $attributValue,
+                (string) Auth::id(),
+            ];
+
+            $res = BlockchainAktaLahirUtil::updateApplication($applicationData);
+
+        }
+
+
+
+
+
+
+
+
+        // call static function of BlockchainAktaLahirUtil
+        // $res = BlockchainAktaLahirUtil::submitApplication($applicationData);
+
         // Use input data directly without validation
-        $validatedData = $request;
+
 
         // Update data in TPengajuan
         $pengajuan->update([
@@ -411,7 +566,7 @@ class AktaLahirController extends Controller
         ]);
 
         // Determine values for specific fields
-        $jenisKelamin = $validatedData['jenis_kelamin_anak'] == 'L' ? 1 : 2;
+
 
         $hariMap = [
             'Senin' => 1,
@@ -488,6 +643,8 @@ class AktaLahirController extends Controller
             'nama_lgkp_saksi_2' => $validatedData['nama_saksi2'],
             // ...additional data for Saksi 2...
         ]);
+
+
 
         // Handle file uploads if needed
         // ...existing code...

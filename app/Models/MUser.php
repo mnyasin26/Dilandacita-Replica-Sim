@@ -111,4 +111,9 @@ class MUser extends Model implements AuthenticatableContract
 	{
 	    return $this->hasMany(TPengajuan::class, 'created_by', 'id_user');
 	}
+
+    public function hasRole($role)
+    {
+        return $this->m_role->role === $role;
+    }
 }
