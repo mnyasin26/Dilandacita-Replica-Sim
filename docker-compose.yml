@@ -1,0 +1,26 @@
+services:
+  dilandacita-webapp:
+    build: .
+    container_name: dilandacita-webapp
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8000:8000"
+    #   - "5173:5173"
+    networks:
+      # - amqs_net
+      - dialndacita_net
+      - db_net
+      - nginx_net
+
+networks:
+  dialndacita_net:
+    name: dialndacita_net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.3.0/24
+  db_net:
+    external: true
+  nginx_net:
+    external: true
